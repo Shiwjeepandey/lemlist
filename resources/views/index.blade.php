@@ -354,6 +354,7 @@ Dashboard
 										<div>
 											<a href="{{ route('leads.uploaded-leads')}}" class="font-size-h6 text-dark-75 text-hover-primary font-weight-bolder">{{ (!empty($sheets->sheet_short_name)) ? $sheets->sheet_short_name : '-' }}</a>
 											<div class="font-size-sm text-muted font-weight-bold mt-1">{{$sheets->user->name }} </div>
+											<div class="font-size-sm text-muted font-weight-bold mt-1">Created At: {{date("Y-m-d h:m A",strtotime($sheets->created_at)) }} </div>
 										</div>
 									</div>
 									<div class="label label-light label-inline font-weight-bold text-dark-50 py-4 px-3 font-size-base d-none">
@@ -420,6 +421,9 @@ Dashboard
 										<a href="{{ route('leads.list',['id'=>$leads->sheet_id])}}" class="font-size-h6 text-dark-75 text-hover-primary font-weight-bolder">Lead( {{ $leads->campaign_id }} )</a>
 										<div class="font-size-sm text-muted font-weight-bold mt-1">
 										{{ $leads->email }} ({{ $leads->first_name. ' ' . $leads->last_name}})
+											</div>
+											<div class="font-size-sm text-muted font-weight-bold mt-1">
+												Created Date: {{ date("Y-m-d h:m A",strtotime($leads->created_at)) }}
 											</div>
 									</div><br>
 									

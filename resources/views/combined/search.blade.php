@@ -145,7 +145,7 @@ Leads
                                             <th scope="col">Email</th>
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Company</th>
-                                            <th scope="col">Lemlist Inserted</th>
+                                            <!-- <th scope="col">Lemlist Inserted</th> -->
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -229,14 +229,14 @@ Leads
                 order: [
                         [3, "desc"]
                         ],
-                    columnDefs: [ { orderable: false, targets: [0,6] } ],
+                    columnDefs: [ { orderable: false, targets: [0] } ],
                 columns: [
                     { data: 'DT_RowIndex', searchable: false },
                     { data: 'campaign_id' },
                     { data: 'email' },
                     { data: 'full_name' },
                     { data: 'keyword' },
-                    { data: 'is_inserted_lemlist' },
+                    //{ data: 'is_inserted_lemlist' },
                     { data: 'action' },
                 ],
                 searching: false,
