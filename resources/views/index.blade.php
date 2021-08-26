@@ -234,7 +234,29 @@ Dashboard
 									 </div>
 									</div>
 							   </div>
-								
+							   <div class="col bg-light-info px-3 py-8 rounded-xl mr-7 mb-7">
+									<div class="row d-flex justify-content-center align-items-center">
+									 <div class="col pr-0">
+										<span class="svg-icon svg-icon-3x svg-icon-danger d-block my-2">
+											<!--begin::Svg Icon | path:assets/media/svg/icons/Communication/Urgent-mail.svg-->
+											<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+													<rect x="0" y="0" width="24" height="24"></rect>
+													<rect fill="#000000" opacity="0.3" x="13" y="4" width="3" height="16" rx="1.5"></rect>
+													<rect fill="#000000" x="8" y="9" width="3" height="11" rx="1.5"></rect>
+													<rect fill="#000000" x="18" y="11" width="3" height="9" rx="1.5"></rect>
+													<rect fill="#000000" x="3" y="13" width="3" height="7" rx="1.5"></rect>
+												</g>
+											</svg>
+											<!--end::Svg Icon-->
+										</span>
+										<a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">Duplicate Leads Percentage</a>
+									</div>
+									<div class="pl-0 col text-right">
+										<h6><strong>{{ !empty($duplicateLeadCount) ? round(($duplicateLeadCount*100)/$leadCount).'%' : 0 }}</strong></h6>
+									 </div>
+									</div>
+							   </div>
 							</div>
 							<!--end::Row-->
 							
@@ -354,7 +376,7 @@ Dashboard
 										<div>
 											<a href="{{ route('leads.uploaded-leads')}}" class="font-size-h6 text-dark-75 text-hover-primary font-weight-bolder">{{ (!empty($sheets->sheet_short_name)) ? $sheets->sheet_short_name : '-' }}</a>
 											<div class="font-size-sm text-muted font-weight-bold mt-1">{{$sheets->user->name }} </div>
-											<div class="font-size-sm text-muted font-weight-bold mt-1">Created At: {{date("Y-m-d h:m A",strtotime($sheets->created_at)) }} </div>
+											<div class="font-size-sm text-muted font-weight-bold mt-1">{{date("d M Y ",strtotime($sheets->created_at)) }} </div>
 										</div>
 									</div>
 									<div class="label label-light label-inline font-weight-bold text-dark-50 py-4 px-3 font-size-base d-none">
@@ -423,7 +445,7 @@ Dashboard
 										{{ $leads->email }} ({{ $leads->first_name. ' ' . $leads->last_name}})
 											</div>
 											<div class="font-size-sm text-muted font-weight-bold mt-1">
-												Created Date: {{ date("Y-m-d h:m A",strtotime($leads->created_at)) }}
+												{{ date("d M Y ",strtotime($leads->created_at)) }}
 											</div>
 									</div><br>
 									

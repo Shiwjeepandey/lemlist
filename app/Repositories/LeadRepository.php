@@ -236,7 +236,7 @@ class LeadRepository extends BaseRepository
                 return $action;
                 })
                 ->editColumn('created_at',function($data){
-                    return date("d M, Y H:i:s", strtotime($data->created_at));
+                    return date("Y-m-d H:i:s", strtotime($data->created_at));
                 })
                 ->rawColumns(['totalLead','duplicateLead','action'])
                 ->addIndexColumn()
