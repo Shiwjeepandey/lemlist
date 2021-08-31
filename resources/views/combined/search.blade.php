@@ -135,13 +135,25 @@ Leads
                            
                             </div>
                         </form>
+                        <div class="row">
+                            <div class="col-3">
+                               <strong>Lead Count :</strong>
+                                {{ $leadCount }}
+                            </div>
+                            <div class="col-3">
+                               <strong>Sheet Count :</strong>
+                               {{ $sheetCount }}
+                            </div>
+                                
+                           
+                            </div>
 
                         <div class="table-responsive">
                                 <table class="table" id="exports-table">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Campaign Id</th>
+                                            <th scope="col">Campaign Name</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Full Name</th>
                                             <th scope="col">Company</th>
@@ -158,6 +170,7 @@ Leads
                     <!--end::Card-->               
                 </div>
             </div>
+            
         </div>
         <!--end::Container-->
     </div>
@@ -232,7 +245,7 @@ Leads
                     columnDefs: [ { orderable: false, targets: [0] } ],
                 columns: [
                     { data: 'DT_RowIndex', searchable: false },
-                    { data: 'campaign_id' },
+                    { data: 'compaign.campaign_name' },
                     { data: 'email' },
                     { data: 'full_name' },
                     { data: 'keyword' },

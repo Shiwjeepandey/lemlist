@@ -11,4 +11,7 @@ class Lead extends Model{
 	public function sheet(){
         return $this->belongsTo(Sheet::class,'sheet_id','id');
     }
+	public function compaign(){
+        return $this->belongsTo(Campaign::class,'campaign_id','campaign_id');
+    }
 }

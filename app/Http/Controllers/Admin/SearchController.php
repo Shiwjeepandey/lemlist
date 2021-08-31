@@ -60,7 +60,10 @@ class SearchController extends Controller{
             $arrData['compaignId'] = "";
           }
           $arrData['get'] = $get;
-          //echo "<pre>";var_dump($arrData['get']);
+          $arrData['leadCount'] = $this->objLeadRepositery->getAllLeadCount($arrData['userId'],$arrData['compaignId'],$arrData['fromArrayDate'],$arrData['toArrayDate']);
+          $arrData['sheetCount'] = $this->objLeadRepositery->getAllSheetCount($arrData['userId'],$arrData['compaignId'],$arrData['fromArrayDate'],$arrData['toArrayDate']);
+         //echo "<pre>";var_dump($arrData['leadCount']);
+
 		return view('combined.search',$arrData);
     }
     public function searchSheet(Request $request){
