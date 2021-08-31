@@ -126,11 +126,8 @@ Dashboard
 							<!--begin::Content-->
 							<div class="fw-bold">
 								<h4 class="text-gray-900 fw-bolder">Duplicate Leads Percentage </h4>
-								<div class="fs-6 text-gray-700">Percentage of all duplicate leads</div>
+								<div class="fs-6 text-gray-700">Overall <b class="text-danger">{{ !empty($duplicateLeadCount) ? round(($duplicateLeadCount*100)/$leadCount).'%' : 0 }}</b> leads are getting duplicated in Lemlist when you guys uploaded the sheet</div>
 								
-							</div>
-							<div style="flex: auto;">
-								<b class="text-right d-block">{{ !empty($duplicateLeadCount) ? round(($duplicateLeadCount*100)/$leadCount).'%' : 0 }}</b>
 							</div>
 							<!--end::Content-->
 						</div>
