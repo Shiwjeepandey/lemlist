@@ -114,10 +114,10 @@ Dashboard
 			<!--begin::Dashboard-->
 			<div class="row pb-5">
 				<div class="col-12">
-					<div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+					<div class="notice d-flex bg-light-info rounded border-info border border-dashed p-6">
 						<!--begin::Icon-->
 						<!--begin::Svg Icon | path: icons/duotune/general/gen044.svg-->
-						<span class="svg-icon svg-icon-2tx svg-icon-warning me-4">
+						<span class="svg-icon svg-icon-2tx svg-icon-info me-4">
 						</span>
 						<!--end::Svg Icon-->
 						<!--end::Icon-->
