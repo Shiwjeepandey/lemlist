@@ -60,7 +60,7 @@ Route::post('forgot-password/{token}', 'AuthController@forgotPostPassword')->nam
 
     Route::get('/logout', 'AuthController@logout')->name('logout')->middleware('auth');
 
-
+    Route::get('script-emailbounce/', 'Script\ScriptController@emailbounce')->name('emailbounce');
 
     Route::prefix('users')->middleware('auth')->name('users.')->group(static function() {
 
