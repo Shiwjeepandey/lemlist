@@ -48,14 +48,14 @@ class CampaignRepository extends BaseRepository
               
                 return "<a href='script-emailbounce?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
             })
-            ->addColumn('email_unsubscribe', function ($data) {
+            // ->addColumn('email_unsubscribe', function ($data) {
               
-                return "<a href='script-emailunsubscribe?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
-            })
+            //     return "<a href='script-emailunsubscribe?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
+            // })
             ->editColumn('updated_at', function ($data) {
                 return date("d M, Y H:i:s", strtotime($data->updated_at));
             })->addIndexColumn()
-            ->rawColumns(['all_chk','campaign_id','email_unsubscribe'])
+            ->rawColumns(['all_chk','campaign_id'])
 
             ->toJson();
     }

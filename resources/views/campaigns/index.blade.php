@@ -94,7 +94,6 @@ Campaigns
                                                 </label>
                                             </th>
                                             <th scope="col">Campaign Id</th>
-                                            <th scope="col">email-unsubscribe</th>
                                             <th scope="col">Campaign Name</th>
                                             <th scope="col">Last Synced</th>
                                         </tr>
@@ -184,7 +183,6 @@ Campaigns
             columns: [
                 { data: 'all_chk', searchable: false },
                 { data: 'campaign_id' },
-                { data: 'email_unsubscribe'},
                 { data: 'campaign_name' },
                 { data: 'updated_at' },
             ],
