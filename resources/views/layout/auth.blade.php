@@ -208,7 +208,8 @@
         	});
 		</script>
 		 <script src="{{ url('public/admin/assets/js/custom.js') }}"></script>
-		 
+
+			 
 		 @yield('script')
 	</body>
 	<!--end::Body-->

@@ -27,7 +27,7 @@ class CampaignRepository extends BaseRepository
     * @param void
     * @return array of objects
     * @author Shiv Kumar Tiwari
-    */
+    */ 
     public function getAllCampaigns()
     {
 
@@ -44,10 +44,19 @@ class CampaignRepository extends BaseRepository
             ->addColumn('all_chk', function ($data) {
                 return "<label class='checkbox checkbox-lg'><input type='checkbox' name='campaigns' id='chk_{$data->campaign_id}' class='campaigns_checkbox' value='{$data->campaign_id}'><span></span></label>";
             })
+            ->addColumn('campaign_id', function ($data) {
+              
+                return "<a href='script-emailbounce?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
+            })
+            ->addColumn('email_unsubscribe', function ($data) {
+              
+                return "<a href='script-emailunsubscribe?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
+            })
             ->editColumn('updated_at', function ($data) {
                 return date("d M, Y H:i:s", strtotime($data->updated_at));
             })->addIndexColumn()
-            ->rawColumns(['all_chk'])
+            ->rawColumns(['all_chk','campaign_id','email_unsubscribe'])
+
             ->toJson();
     }
 

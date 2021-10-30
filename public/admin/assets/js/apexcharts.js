@@ -1,3 +1,7 @@
+
+//# sourceMappingURL=apexcharts.js.map
+
+
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /*!***********************************************************!*\
@@ -963,14 +967,15 @@ var KTApexChartsDemo = function () {
 	}
 
 	var _demo12 = function () {
+		// alert(emailBounceCount);
 		const apexChart = "#chart_12";
 		var options = {
-			series: [44, 55, 13, 43, 22],
+			series: [parseInt(leadCount)-parseInt(duplicateLeadCount),parseInt(emailBounceCount),parseInt(emailunsubscribe)],
 			chart: {
 				width: 380,
 				type: 'pie',
 			},
-			labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
+			labels: ['total leads','email bounce','email unsubscribe'],
 			responsive: [{
 				breakpoint: 480,
 				options: {
@@ -982,7 +987,7 @@ var KTApexChartsDemo = function () {
 					}
 				}
 			}],
-			colors: [primary, success, warning, danger, info]
+			colors: [primary, success, warning]
 		};
 
 		var chart = new ApexCharts(document.querySelector(apexChart), options);

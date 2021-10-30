@@ -7,6 +7,7 @@ use App\Campaign;
 use App\Role;
 use App\Lead;
 use App\Sheet;
+use App\Activity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -24,11 +25,14 @@ class DashboardController extends Controller{
         $arrData['compaignCount'] = Campaign::count();
         $arrData['leadCount'] = Lead::count();
         $arrData['sheetCount'] = Sheet::count();
+        $arrData['emailBounceCount']=Activity::where('type','email_bounce')->count();
+        $arrData['emailunsubscribe']=Activity::where('type','emailunsubscribe')->count();
+
         $duplicates = DB::table('tbl_leads')
             ->select('email', DB::raw('COUNT(*) as `count`'))
             ->groupBy('email')
             ->having('count', '>', 1)
-            ->get();
+            ->get(); 
            // echo "<pre>";var_dump($duplicates);exit;
         $duplicateLeadCount = 0;
         if(!empty($duplicates[0])){

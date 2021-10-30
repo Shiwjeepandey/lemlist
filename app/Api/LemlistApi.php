@@ -2,7 +2,7 @@
 
 namespace App\Api;
 
-class LemlistApi{
+class LemlistApi{ 
     
     // private variables for api urls and keys
     private $apiUrl;

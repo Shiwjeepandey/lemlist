@@ -94,6 +94,7 @@ Campaigns
                                                 </label>
                                             </th>
                                             <th scope="col">Campaign Id</th>
+                                            <th scope="col">email-unsubscribe</th>
                                             <th scope="col">Campaign Name</th>
                                             <th scope="col">Last Synced</th>
                                         </tr>
@@ -170,6 +171,7 @@ Campaigns
                 type: 'GET',
                 dataType:'json',
                 data: function (d) {
+                    
                     //d.user = $('.search_by_user').val();
                     //d.project = $('#search_by_project').val();
                 }
@@ -182,6 +184,7 @@ Campaigns
             columns: [
                 { data: 'all_chk', searchable: false },
                 { data: 'campaign_id' },
+                { data: 'email_unsubscribe'},
                 { data: 'campaign_name' },
                 { data: 'updated_at' },
             ],

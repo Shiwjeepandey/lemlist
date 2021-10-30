@@ -60,7 +60,8 @@ Route::post('forgot-password/{token}', 'AuthController@forgotPostPassword')->nam
 
     Route::get('/logout', 'AuthController@logout')->name('logout')->middleware('auth');
 
-    Route::get('script-emailbounce/', 'Script\ScriptController@emailbounce')->name('emailbounce');
+    Route::get('script-emailbounce', 'Script\ScriptController@emailbounce')->name('emailbounce');
+    Route::get('script-emailunsubscribe', 'Script\ScriptController@emailunsubscribe')->name('emailunsubscribe');
 
     Route::prefix('users')->middleware('auth')->name('users.')->group(static function() {
 
@@ -97,7 +98,7 @@ Route::post('forgot-password/{token}', 'AuthController@forgotPostPassword')->nam
         Route::post('/add', 'AdminManagementController@addPost')->name('add.post');
 
         
-
+ 
     });
 
 	Route::prefix('/campaigns')->middleware('auth')->name('campaigns.')->group(static function() {

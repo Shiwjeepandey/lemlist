@@ -22,7 +22,7 @@ class CampaignController extends Controller{
     public function index(){
 		return view('campaigns.index',[
         ]);
-    }
+    } 
 
     public function get_campaigns(Request $request){
         if ($request->ajax()){
