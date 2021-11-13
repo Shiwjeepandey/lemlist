@@ -35,6 +35,12 @@ class CampaignRepository extends BaseRepository
         $campaigns = $campaigns->where('is_delete', 0)->orderBy('id', 'desc')->get();
         return $campaigns;
     }
+    public function getAllCampaignsbydistribute()
+    {
+        $campaigns = $this->_model;
+        $campaigns = $campaigns->where('is_delete', 0)->where('type','Sales Distribution')->orderBy('id', 'desc')->get();
+        return $campaigns;
+    }
     public function getAllCampaignsWithDataTable()
     {
 

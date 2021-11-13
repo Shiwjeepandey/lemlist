@@ -25,8 +25,8 @@ class DashboardController extends Controller{
         $arrData['compaignCount'] = Campaign::count();
         $arrData['leadCount'] = Lead::count();
         $arrData['sheetCount'] = Sheet::count();
-        $arrData['emailBounceCount']=Activity::where('type','email_bounce')->count();
-        $arrData['emailunsubscribe']=Activity::where('type','emailunsubscribe')->count();
+        $arrData['emailBounceCount']=Lead::where('email_bounce','1')->count();
+        $arrData['emailunsubscribe']=Lead::where('email_unsubscribe','1')->count();
         $duplicates = DB::table('tbl_leads')
                         ->select(DB::raw('COUNT(*) as `count`'))
                         ->where('is_inserted_lemlist',0)

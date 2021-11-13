@@ -34,7 +34,7 @@ class LeadController extends Controller
 
         $this->objCampaignRepositery = $campaignRepositery;
 
-        $arrCampaigns = $this->objCampaignRepositery->getAllCampaigns();
+       $arrCampaigns = $this->objCampaignRepositery->getAllCampaignsbydistribute();
 
         return view('leads.upload_leads', ['arrCampaigns' => $arrCampaigns]);
     }
