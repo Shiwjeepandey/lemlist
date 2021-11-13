@@ -43,7 +43,7 @@ Campaigns
     <div class="d-flex flex-column-fluid">
         <!--begin::Container-->
         <div class="container">
-            <div class="row">
+            <div class="row"> 
                 <div class="col-xl-12">
                     <!--begin::Card-->
                     <div class="card card-custom gutter-b">
@@ -53,8 +53,9 @@ Campaigns
                             </div>
                             <select class="form-control pull-right col-3 mt-3" id="actions">
                                 <option value="">Select Action</option>
-                                <option value="delete">Delete</option>
-                                {{-- <option value="restore">Restore</option> --}}
+                                <option value="Delete">Delete</option>
+                                 <option value="Reporting">Reporting</option>
+                                 <option value="Lead_Distribution">Lead Distribution</option>
                             </select>
                         </div>
                         <div class="card-body">
@@ -119,14 +120,14 @@ Campaigns
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Campaigns Removal Confirmation</h4>
+                <h4 class="modal-title" id="model_title"> </h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
             </div>
             <div class="modal-body">
-                <p>
-                    Are you sure you want remove these ?
+                <p id="confirm_msg">
+                   
                 </p>
             </div>
             <div class="modal-footer">
@@ -209,20 +210,59 @@ Campaigns
         })
 
         var checkboxValues = [];
+        // $('body').on('change','#actions',function(e){
+        //     if($(this).val()!=""){
+        //         $('input[name=campaigns]:checked').map(function() {
+        //             checkboxValues.push($(this).val());
+        //         });
+        //         if(checkboxValues!=""){
+        //             $('#success-modal').modal('show');
+        //         }else{
+        //             $('#error-modal').modal('show');
+        //         }
+        //     }
+            
+        // })
+        function emptylabel()
+        {
+            $('#model_title').html('');
+            $('#confirm_msg').html('');
+        }
         $('body').on('change','#actions',function(e){
-            if($(this).val()!=""){
-                $('input[name=campaigns]:checked').map(function() {
+            $('input[name=campaigns]:checked').map(function() {
                     checkboxValues.push($(this).val());
                 });
-                if(checkboxValues!=""){
+          if(checkboxValues!=""){
+            if($(this).val()=="Delete"){
+                
+                    emptylabel();
+                     $('#model_title').html('Campaigns Removal Confirmation');
+                     $('#confirm_msg').html('Are you sure you want remove these ?');
                     $('#success-modal').modal('show');
-                }else{
+                
+            }
+            else if($(this).val()=="Reporting")
+            {
+                emptylabel();
+                $('#model_title').html('Campaigns Type Assign Confirmation');
+                $('#confirm_msg').html('Are you sure you want to assign Add these ?');
+              
+                $('#success-modal').modal('show');
+            }
+            else if($(this).val()=="Lead_Distribution")
+            {
+                emptylabel();
+                $('#model_title').html('Campaigns Type Assign Confirmation');
+                $('#confirm_msg').html('Are you sure you want to assign Add these ?');
+             
+                $('#success-modal').modal('show');
+            }
+          }
+        else{
                     $('#error-modal').modal('show');
                 }
-            }
-            
         })
-
+// remove restore and add report and lead distribution compaigns start
         $('body').on('click','#remove-restore-campaigns',function(e){
            if(checkboxValues!=""){
                 var $this = $(this);
@@ -242,7 +282,7 @@ Campaigns
                 })
            }
         })
-
+        
         //$('input[name="locationthemes"]:checked').serialize()
 
         $('body').on('click','#syncWithLemlist',function(e){

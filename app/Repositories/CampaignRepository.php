@@ -11,7 +11,7 @@ use Yajra\DataTables\DataTables;
 
 class CampaignRepository extends BaseRepository
 {
-
+ 
     /**
      * get model
      * @return string
@@ -64,13 +64,15 @@ class CampaignRepository extends BaseRepository
 
      * Show the application dashboard.
      *
-     * @return void
+     * @return void 
      */
 
     public function deleteRestoreAll($request, $varData){
         $this->_model->whereIn('campaign_id',$request)->update(array('is_delete'=>$varData));
     }
-
+    public function insertType($request, $varData){
+        $this->_model->whereIn('campaign_id',$request)->update(array('type'=>$varData));
+    }
     /*
     * function to get all capaigns from Lemlist and save or update into our database
     * @param void

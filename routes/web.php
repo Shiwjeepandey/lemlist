@@ -122,7 +122,8 @@ Route::post('forgot-password/{token}', 'AuthController@forgotPostPassword')->nam
         Route::get('/get-campaigns', 'Admin\CampaignController@get_campaigns')->name('get-campaigns');
 
         Route::post('/delete-campaigns', 'Admin\CampaignController@delete_campaigns')->name('delete-campaigns');
-
+        Route::post('/reporting-type-campaigns', 'Admin\CampaignController@reporting_type_campaigns')->name('reporting-type-campaigns');
+        Route::post('/lead-destribution-campaigns', 'Admin\CampaignController@lead_destribution_campaigns')->name('lead-destribution-campaigns');
     });
 
 	Route::prefix('/leads')->middleware('auth')->name('leads.')->group(static function() {
