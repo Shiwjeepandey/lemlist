@@ -126,7 +126,7 @@ Dashboard
 							<!--begin::Content-->
 							<div class="fw-bold">
 								<h4 class="text-gray-900 fw-bolder">Duplicate Leads Percentage </h4>
-								<div class="fs-6 text-gray-700">Overall <b class="text-danger">{{ !empty($duplicateLeadCount) ? round(($duplicateLeadCount*100)/$leadCount).'%' : 0 }}</b> leads are getting duplicated in Lemlist when you guys uploaded the sheet</div>
+								<div class="fs-6 text-gray-700">Overall <b class="text-danger">{{ !empty($duplicateLeadCount) ? round(($duplicateLeadCount*100)/$leadCount).'%' : 0 }}</b> leads are getting duplicated in Lemlist</div>
 								
 							</div>
 							<!--end::Content-->
@@ -136,7 +136,7 @@ Dashboard
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-8">
+				<div class="col-7">
 					<!--begin::Mixed Widget 1-->
 
 					<!--begin::Row-->
@@ -264,12 +264,12 @@ Dashboard
 					</div>
 					<!--end::Row-->
 				</div>
-				<div class="col-4">
+				<div class="col-5">
 					<!--begin::Card-->
 					<div class="card card-custom gutter-b">
 						<div class="card-header">
 							<div class="card-title">
-								<h3 class="card-label">Pie Chart</h3>
+								<h3 class="card-label">Activities Vs Actual Leads</h3>
 							</div>
 						</div>
 						<div class="card-body">
