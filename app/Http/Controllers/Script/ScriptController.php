@@ -105,7 +105,8 @@ class ScriptController extends Controller{
     /*
     * Script for email bounce for campaignIds
     */
-    public function emailbounce(Request $request){
+    // emailbounce this function name rename by anu
+    public function emailunsubscribe(Request $request){
         $objLemlistApi = new LemlistApi('activities');
         $cmp_id = $request->input('cmp_id'); 
         $objResult = $objLemlistApi->callApiWithGetData("?type=emailsBounced&isFirst=true&campaignId={$cmp_id}");
@@ -153,8 +154,8 @@ class ScriptController extends Controller{
         }
         
     }
-   
-    public function emailunsubscribe(Request $request){
+    // emailunsubscribe rename this function by anu
+    public function emailbounce(Request $request){
         $objLemlistApi = new LemlistApi('activities');
         $cmp_id = $request->input('cmp_id'); 
         $objResult = $objLemlistApi->callApiWithGetData("?type=emailsUnsubscribed&isFirst=true&campaignId={$cmp_id}");
