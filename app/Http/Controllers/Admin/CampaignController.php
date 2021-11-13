@@ -23,7 +23,7 @@ class CampaignController extends Controller{
 		return view('campaigns.index',[
         ]);
     } 
- 
+  
     public function get_campaigns(Request $request){
         if ($request->ajax()){
             $arrCampaigns = $this->objCampaignRepositery->getAllCampaignsWithDataTable();

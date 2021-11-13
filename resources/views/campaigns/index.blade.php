@@ -53,7 +53,7 @@ Campaigns
                             </div>
                             <select class="form-control pull-right col-3 mt-3" id="actions">
                                 <option value="">Select Action</option>
-                                <option value="Delete">Delete</option>
+                                 <option value="Delete">Delete</option>
                                  <option value="Reporting">Reporting</option>
                                  <option value="Lead_Distribution">Lead Distribution</option>
                             </select>
