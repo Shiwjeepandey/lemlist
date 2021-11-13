@@ -108,7 +108,7 @@ class ScriptController extends Controller{
     public function emailbounce(Request $request){
         $objLemlistApi = new LemlistApi('activities');
         $cmp_id = $request->input('cmp_id'); 
-        $objResult = $objLemlistApi->callApiWithGetData("?type=emailsBounced&campaignId={$cmp_id}");
+        $objResult = $objLemlistApi->callApiWithGetData("?type=emailsBounced&isFirst=true&campaignId={$cmp_id}");
     
         if(!empty($objResult)){
             foreach($objResult as $key=>$value){
@@ -157,7 +157,7 @@ class ScriptController extends Controller{
     public function emailunsubscribe(Request $request){
         $objLemlistApi = new LemlistApi('activities');
         $cmp_id = $request->input('cmp_id'); 
-        $objResult = $objLemlistApi->callApiWithGetData("?type=emailsUnsubscribed&campaignId={$cmp_id}");
+        $objResult = $objLemlistApi->callApiWithGetData("?type=emailsUnsubscribed&isFirst=true&campaignId={$cmp_id}");
     
         if(!empty($objResult)){
             foreach($objResult as $key=>$value){

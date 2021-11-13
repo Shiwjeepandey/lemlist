@@ -31,23 +31,7 @@ class DashboardController extends Controller{
                         ->select(DB::raw('COUNT(*) as `count`'))
                         ->where('is_inserted_lemlist',0)
                         ->get();
-        //echo "<pre>";var_dump($duplicates);exit;
         $duplicateLeadCount = !empty($duplicates[0]) ? $duplicates[0]->count : 0 ;
-
-        // $duplicates = DB::table('tbl_leads')
-        //     ->select('email', DB::raw('COUNT(*) as `count`'))
-        //     ->groupBy('email')
-        //     ->having('count', '>', 1)
-        //     ->get(); 
-        //    // echo "<pre>";var_dump($duplicates);exit;
-        // $duplicateLeadCount = 0;
-        // if(!empty($duplicates[0])){
-        //     $sumDuplicate = 0;
-        //    foreach($duplicates as $duplicate){
-        //     $sumDuplicate = $sumDuplicate+$duplicate->count;
-        //    }
-        //    $duplicateLeadCount = $sumDuplicate-$duplicates->count();
-        // }
         $arrData['getLatestCompaign'] = $campaignRepositery->getLatestCompaign();
         $arrData['getLatestSheet'] = $objLeadRepository->getLatestSheets();
         $arrData['getLatestLeads'] = $objLeadRepository->getLatestLeads();
