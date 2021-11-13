@@ -60,8 +60,20 @@ Route::post('forgot-password/{token}', 'AuthController@forgotPostPassword')->nam
 
     Route::get('/logout', 'AuthController@logout')->name('logout')->middleware('auth');
 
+    // routes for scripts and hooks
     Route::get('script-emailbounce', 'Script\ScriptController@emailbounce')->name('emailbounce');
     Route::get('script-emailunsubscribe', 'Script\ScriptController@emailunsubscribe')->name('emailunsubscribe');
+
+    Route::get('list-lemlist-webhooks', 'Script\ScriptController@listLemlistWebhooks')->name('list-lemlist-webhooks');
+    Route::get('create-lemlist-webhooks', 'Script\ScriptController@createLemlistWebhooks')->name('reate-lemlist-webhooks');
+
+    Route::post('process-webhooks', 'Script\ScriptController@processWebhooks')->name('process-webhooks');
+
+    Route::prefix('webhooks')->name('webhooks.')->group(static function() {
+        Route::post('/email-bounce', 'Script\ScriptController@processBounceWebhooks')->name('email-bounce');
+        Route::post('/email-unsubscribe', 'Script\ScriptController@processUnsubscribeWebhooks')->name('email-unsubscribe');
+        Route::post('/email-sent', 'Script\ScriptController@processEmailSentWebhooks')->name('email-sent');
+    });
 
     Route::prefix('users')->middleware('auth')->name('users.')->group(static function() {
 

@@ -24,7 +24,7 @@ class LemlistApi{
     * @author Shiv Kumar Tiwari
     */
     public function callApi(){
-        echo $command = 'curl '.$this->apiUrl.' --user ":'.$this->apiKey.'"';
+        $command = 'curl '.$this->apiUrl.' --user ":'.$this->apiKey.'"';
 		$output = exec($command);
 		$jsonData = json_decode($output);
         return $jsonData;

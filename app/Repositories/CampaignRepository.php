@@ -38,7 +38,7 @@ class CampaignRepository extends BaseRepository
     public function getAllCampaignsWithDataTable()
     {
 
-        $campaigns = $this->_model->where('is_delete', 0);
+        $campaigns = $this->_model->where('is_delete','!=' , 2);
         $table = new DataTables();
         return $table->eloquent($campaigns)
             ->addColumn('all_chk', function ($data) {

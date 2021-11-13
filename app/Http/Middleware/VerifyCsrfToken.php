@@ -13,5 +13,9 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
+        'process-webhooks',
+        'webhooks/email-unsubscribe',
+        'webhooks/email-bounce',
+        'webhooks/email-sent'
     ];
 }

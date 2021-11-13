@@ -95,6 +95,7 @@ Campaigns
                                             </th>
                                             <th scope="col">Campaign Id</th>
                                             <th scope="col">Campaign Name</th>
+                                            <th scope="col">Campaign Type</th>
                                             <th scope="col">Last Synced</th>
                                         </tr>
                                     </thead>
@@ -184,6 +185,7 @@ Campaigns
                 { data: 'all_chk', searchable: false },
                 { data: 'campaign_id' },
                 { data: 'campaign_name' },
+                { data: 'type' },
                 { data: 'updated_at' },
             ],
             searching: true,

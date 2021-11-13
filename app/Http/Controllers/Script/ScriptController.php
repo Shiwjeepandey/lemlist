@@ -10,9 +10,98 @@ use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use App\Api\LemlistApi;
 use App\Lead;
 use App\Activity;
- 
+use Illuminate\Support\Facades\DB;
+
 class ScriptController extends Controller{ 
 
+    /*
+    * to list the webhooks on lemlist
+    */
+    public function listLemlistWebhooks(Request $request)
+    {
+        $objLemlistApi = new LemlistApi('hooks');
+        $objResult = $objLemlistApi->callApi();
+        dd($objResult);
+    }
+
+     /*
+    * to create the webhooks on lemlist
+    */
+    public function createLemlistWebhooks(Request $request)
+    {
+        $objLemlistApi = new LemlistApi('hooks');
+        $objResult = $objLemlistApi->callApiWithData([
+            'targetUrl'=>"https://lemlist.statuscrawl.io/webhooks/email-unsubscribe",
+            'type'=>"emailsUnsubscribed",
+            'isFirst'=>true
+        ]);
+        dd($objResult);
+    }
+    
+    /*
+    * process webhooks
+    */
+    public function processWebhooks(Request $request)
+    {
+        $data = json_encode($request->post());
+        DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['',$data]);
+    }
+
+    /*
+    * process webhooks
+    */
+    public function processEmailSentWebhooks(Request $request)
+    {
+        $data = json_encode($request->post());
+        DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['emailsSent',$data]);
+    }
+
+    /*
+    * process for email bounces
+    */
+    public function processBounceWebhooks(Request $request)
+    {
+        $arrPostData = $request->post();
+        if(!empty($arrPostData)){
+            $objLeadModel = new Lead();
+            $objExistedLead = $objLeadModel->where('email',$arrPostData['leadEmail'])
+                                                ->where('is_inserted_lemlist','1\'')
+                                                ->where('campaign_id',$arrPostData['campaignId'])
+                                                ->get();
+            if(!empty($objExistedLead[0]->id)){
+                $emailbounce=Lead::find($objExistedLead[0]->id);
+                $emailbounce->email_bounce='1';
+                $emailbounce->update();
+            }
+        }
+        $data = json_encode($arrPostData);
+        DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['emailsBounced',$data]);
+    }
+
+     /*
+    * process for email bounces
+    */
+    public function processUnsubscribeWebhooks(Request $request)
+    {
+        $arrPostData = $request->post();
+        if(!empty($arrPostData)){
+            $objLeadModel = new Lead();
+            $objExistedLead = $objLeadModel->where('email',$arrPostData['leadEmail'])
+                                                ->where('is_inserted_lemlist','1\'')
+                                                ->where('campaign_id',$arrPostData['campaignId'])
+                                                ->get();
+            if(!empty($objExistedLead[0]->id)){
+                $emailunsubscribe=Lead::find($objExistedLead[0]->id);
+                $emailunsubscribe->email_unsubscribe='1';
+                $emailunsubscribe->update();
+            }
+        }
+        $data = json_encode($arrPostData);
+        DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['emailsUnsubscribed',$data]);
+    }
+    
+
+    
     /*
     * Script for email bounce for campaignIds
     */
@@ -23,7 +112,7 @@ class ScriptController extends Controller{
     
         if(!empty($objResult)){
             foreach($objResult as $key=>$value){
-                $objLeadModel = new Lead();
+                 $objLeadModel = new Lead();
                  $objExistedLead = $objLeadModel->where('email',$value->leadEmail)
                                                 ->where('is_inserted_lemlist','1\'')
                                                 ->where('campaign_id',$value->campaignId)
@@ -38,13 +127,6 @@ class ScriptController extends Controller{
                       if(!empty($emailbounce))
                       { 
                         $activity=new Activity;
-                        //   $activity=new Activity([
-                        //   'email'=>$value->leadEmail,
-                        //   'campaign_id'=>$value->campaignId,
-                        //   'raw_data'=>$objExistedLead,
-                        //   'create_date'=>time(),
-                        //   ]);
-
                         $checkemail=$activity->where('email',$value->leadEmail)
                                               ->where('type','email_bounce')
                                               ->get();
@@ -58,8 +140,6 @@ class ScriptController extends Controller{
                             $activity->create_date=time();
                             $activity->save();
                         }
-                        
-                       
                       }
                    }   
                                           
