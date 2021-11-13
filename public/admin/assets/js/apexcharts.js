@@ -972,10 +972,10 @@ var KTApexChartsDemo = function () {
 		var options = {
 			series: [parseInt(leadCount)-parseInt(duplicateLeadCount),parseInt(emailBounceCount),parseInt(emailunsubscribe)],
 			chart: {
-				width: 380,
+				width: 400,
 				type: 'pie',
 			},
-			labels: ['total leads','email bounce','email unsubscribe'],
+			labels: ['Actual Leads','Email Bounce','Email Unsubscribed'],
 			responsive: [{
 				breakpoint: 480,
 				options: {
