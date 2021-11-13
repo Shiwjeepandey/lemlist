@@ -245,7 +245,7 @@ Campaigns
             {
                 emptylabel();
                 $('#model_title').html('Campaigns Type Assign Confirmation');
-                $('#confirm_msg').html('Are you sure you want to assign Add these ?');
+                $('#confirm_msg').html('Are you sure you want to assign these ?');
               
                 $('#success-modal').modal('show');
             }
@@ -253,7 +253,7 @@ Campaigns
             {
                 emptylabel();
                 $('#model_title').html('Campaigns Type Assign Confirmation');
-                $('#confirm_msg').html('Are you sure you want to assign Add these ?');
+                $('#confirm_msg').html('Are you sure you want to assign these ?');
              
                 $('#success-modal').modal('show');
             }
