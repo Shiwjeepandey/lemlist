@@ -68,7 +68,7 @@ class LemlistApi{
     * @return Decoded Json Data @jsonData
     * @author Shiv Kumar Tiwari
     */
-    public function callApiWithGetData($extra_kwrgs=""){
+    public function callApiWithGetData($extra_kwrgs="",$type=""){
         $curl = curl_init();
         $arrCurl = array(
             CURLOPT_URL => $this->apiUrl."/".$extra_kwrgs,
@@ -87,7 +87,11 @@ class LemlistApi{
         curl_setopt_array($curl, $arrCurl);
         $response = curl_exec($curl);
         curl_close($curl);
-        $jsonData = json_decode($response);
+        if(!empty($type)){
+            $jsonData = json_decode($response,true);
+        }else{
+            $jsonData = json_decode($response);
+        }
         return $jsonData;
     }
 

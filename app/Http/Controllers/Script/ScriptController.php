@@ -9,6 +9,7 @@ use App\Repositories\LeadRepository;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use App\Api\LemlistApi;
 use App\Lead;
+use App\LeadReporting;
 use App\Activity;
 use Illuminate\Support\Facades\DB;
 
@@ -37,18 +38,9 @@ class ScriptController extends Controller{
         ]);
         dd($objResult);
     }
-    
-    /*
-    * process webhooks
-    */
-    public function processWebhooks(Request $request)
-    {
-        $data = json_encode($request->post());
-        DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['',$data]);
-    }
 
     /*
-    * process webhooks
+    * process webhooks for Emails Sent event
     */
     public function processEmailSentWebhooks(Request $request)
     {
@@ -57,7 +49,7 @@ class ScriptController extends Controller{
     }
 
     /*
-    * process for email bounces
+    * process for email bounces event
     */
     public function processBounceWebhooks(Request $request)
     {
@@ -79,7 +71,7 @@ class ScriptController extends Controller{
     }
 
      /*
-    * process for email bounces
+    * process for email unsubscribed event
     */
     public function processUnsubscribeWebhooks(Request $request)
     {
@@ -100,10 +92,43 @@ class ScriptController extends Controller{
         DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['emailsUnsubscribed',$data]);
     }
     
-
+    /*
+    * Script for getting old leads for reporting Campaigns
+    */
+    public function emailSent(Request $request){
+        $objLemlistApi = new LemlistApi('activities');
+        $cmp_id = $request->input('cmp_id'); 
+        $objResult = $objLemlistApi->callApiWithGetData("?type=emailsSent&isFirst=true&campaignId={$cmp_id}",1);
+        //echo date("y-m-d h:i:s", strtotime($objResult[0]['createdAt']));
+        //dd($objResult[0]);exit;//['Area of interest']
+        if(!empty($objResult)){
+            foreach($objResult as $key=>$value){
+                $attributes = [
+                    'campaign_id'=>$cmp_id,
+                    'company'=>$value['companyName'],
+                    'keyword'=>"",
+                    'url'=>"",
+                    'description'=>"",
+                    'first_name'=>$value['leadFirstName'],
+                    'last_name'=>$value['leadLastName'],
+                    'email'=>$value['leadEmail'],
+                    'area_interest'=>$value['Area of interest'],
+                    'source'=>$value['Source'],
+                    'sdr'=>"",
+                    "is_inserted_lemlist"=>1,
+                    "created_at"=>date("y-m-d h:i:s", strtotime($objResult[0]['createdAt']))
+                ];
+                $objModel = new LeadReporting();
+                $objModel->create($attributes);
+            }
+           echo "Data Imported successfully!"; 
+        }else{
+            echo "No Lead in this campaign";
+        }
+    }
     
     /*
-    * Script for email bounce for campaignIds
+    * Script for getting old email bounce for campaignIds till now
     */
    
     public function emailbounce(Request $request){

@@ -61,6 +61,7 @@ Route::post('forgot-password/{token}', 'AuthController@forgotPostPassword')->nam
     Route::get('/logout', 'AuthController@logout')->name('logout')->middleware('auth');
 
     // routes for scripts and hooks
+    Route::get('script-emailsent', 'Script\ScriptController@emailSent')->name('script-emailsent');
     Route::get('script-emailbounce', 'Script\ScriptController@emailbounce')->name('emailbounce');
     Route::get('script-emailunsubscribe', 'Script\ScriptController@emailunsubscribe')->name('emailunsubscribe');
 
