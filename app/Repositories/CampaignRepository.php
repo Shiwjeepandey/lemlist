@@ -50,10 +50,10 @@ class CampaignRepository extends BaseRepository
             ->addColumn('all_chk', function ($data) {
                 return "<label class='checkbox checkbox-lg'><input type='checkbox' name='campaigns' id='chk_{$data->campaign_id}' class='campaigns_checkbox' value='{$data->campaign_id}'><span></span></label>";
             })
-            ->addColumn('campaign_id', function ($data) {
+            // ->addColumn('campaign_id', function ($data) {
               
-                return "<a href='script-emailbounce?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
-            })
+            //     return "<a href='script-emailbounce?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
+            // })
             // ->addColumn('email_unsubscribe', function ($data) {
               
             //     return "<a href='script-emailunsubscribe?cmp_id={$data->campaign_id}' target='_blank'>{$data->campaign_id}</a>";
@@ -61,8 +61,8 @@ class CampaignRepository extends BaseRepository
             ->editColumn('updated_at', function ($data) {
                 return date("d M, Y H:i:s", strtotime($data->updated_at));
             })->addIndexColumn()
-            ->rawColumns(['all_chk','campaign_id'])
-
+            ->rawColumns(['all_chk'])
+            //,'campaign_id'
             ->toJson();
     }
 

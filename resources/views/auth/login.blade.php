@@ -15,10 +15,11 @@
 					<form class="form fv-plugins-bootstrap fv-plugins-framework" action= "{{route('login.post')}}" method="POST"  novalidate="novalidate" id="kt_login_signin_form">
 					 @csrf
 						<!--begin::Title-->
-						<div class="pb-13 pt-lg-0 pt-5">
-									<h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
+						<div class="pb-13 pt-lg-0 pt-3  text-center">
+							<img style="width: 80px;" class="text-center" src="{{ url('public/admin')}}/assets/media/svg/logos/sl-logo-l.svg" alt=""><br>	
+									{{-- <h3 class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg">
 										Sign In
-									</h3>
+									</h3> --}}
 								</div>
 								@if(session()->get('success'))
 									<div class="alert alert-custom alert-notice alert-light-success fade show" role="alert">
@@ -105,7 +106,11 @@
 	<div class="content order-1 order-lg-2 d-flex flex-column w-100 pb-0" style="background-color: #B1DCED;">
 		<!--begin::Title-->
 		<div class="d-flex flex-column justify-content-center text-center pt-md-5 pt-sm-5 px-lg-0 pt-5 px-7">
-			<h3 class="display4 font-weight-bolder my-7 text-dark" style="color: #986923;">Welcome To {{ config('constants.SITE_NAME') }}</h3>
+			
+			<h3 class="display4 font-weight-bolder my-7 text-dark" style="color: #986923;">
+				
+				Welcome To {{ config('constants.SITE_NAME') }}
+			</h3>
 		</div>
 		<!--end::Title-->
 		<!--begin::Image-->
