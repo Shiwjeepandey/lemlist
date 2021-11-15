@@ -1,9 +1,17 @@
 <div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 <!--begin::Logo-->
 <a href="{{ route('dashboard') }}">
-	{{-- <img style="width: 50px;" alt="Logo" src="{{ url('public/admin')}}/assets/img/logo.jpg"> --}}
-	<h3>{{ config('constants.SITE_NAME') }}</h3>
+	<img alt="Logo" src="{{ url('public/admin')}}/assets/media/svg/logos/logo-light.png">
+	<span style="display: inline-flex; flex-direction: column; color: #fff;  position: relative; top: 7px;}">
+		<img alt="Logo" src="{{ url('public/admin')}}/assets/media/svg/logos/logo-light-text.png"><br>
+		<small style="font-size: 9px; font-weight: 500; text-align:right; font-style:italic;">Lemlist Portal</small>
+	</span>
+	{{-- <h6>Lemlist</h6> --}}
 </a>
+{{-- <a href="{{ route('dashboard') }}"> --}}
+	{{-- <img style="width: 50px;" alt="Logo" src="{{ url('public/admin')}}/assets/img/logo.jpg"> --}}
+	{{-- <h3>{{ config('constants.SITE_NAME') }}</h3> --}}
+{{-- </a> --}}
 <!--end::Logo-->
 <!--begin::Toolbar-->
 <div class="d-flex align-items-center">

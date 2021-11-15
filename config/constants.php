@@ -1,4 +1,4 @@
 <?php
 return [
-    'SITE_NAME'=>"Lemlist Integrations"
+    'SITE_NAME'=>"Statuslabs Lemlist Portal"
 ];

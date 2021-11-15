@@ -9,7 +9,7 @@
 				<img alt="Logo" src="{{ url('public/admin')}}/assets/media/svg/logos/logo-light.png">
 				<span style="display: inline-flex; flex-direction: column; color: #fff;  position: relative; top: 7px;}">
 					<img alt="Logo" src="{{ url('public/admin')}}/assets/media/svg/logos/logo-light-text.png"><br>
-				    <small style="font-size: 9px; font-weight: 500; text-align:right; font-style:italic;">Lemlist Integration</small>
+				    <small style="font-size: 9px; font-weight: 500; text-align:right; font-style:italic;">Lemlist Portal</small>
 				</span>
 				{{-- <h6>Lemlist</h6> --}}
 			</a>

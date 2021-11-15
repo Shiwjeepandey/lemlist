@@ -96,11 +96,12 @@ class ScriptController extends Controller{
     * Script for getting old leads for reporting Campaigns
     */
     public function emailSent(Request $request){
+        
         $objLemlistApi = new LemlistApi('activities');
         $cmp_id = $request->input('cmp_id'); 
+        // fetching the data for the event
         $objResult = $objLemlistApi->callApiWithGetData("?type=emailsSent&isFirst=true&campaignId={$cmp_id}",1);
-        //echo date("y-m-d h:i:s", strtotime($objResult[0]['createdAt']));
-        //dd($objResult[0]);exit;//['Area of interest']
+        // and if the data is there then insert into the table lead reporting
         if(!empty($objResult)){
             foreach($objResult as $key=>$value){
                 $attributes = [
