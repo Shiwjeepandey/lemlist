@@ -126,7 +126,7 @@ Dashboard
 							<!--begin::Content-->
 							<div class="fw-bold">
 								<h4 class="text-gray-900 fw-bolder">Duplicate Leads Percentage </h4>
-								<div class="fs-6 text-gray-700">Overall <b class="text-danger">{{ !empty($duplicateLeadCount) ? round(($duplicateLeadCount*100)/$leadCount).'%' : 0 }}</b> leads are getting duplicated in Lemlist</div>
+								<div class="fs-6 text-gray-700">Overall <b class="text-danger">{{ !empty($duplicateLeadCount) ? round(($duplicateLeadCount*100)/$leadCount).'%' : 0 }}</b> leads are getting duplicated in Lemlist uploaded by Esther Phan & Claire Lilly</div>
 								
 							</div>
 							<!--end::Content-->
@@ -229,7 +229,8 @@ Dashboard
 												</svg>
 												<!--end::Svg Icon-->
 											</span>
-											<a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Leads</a>
+											<a href="#" class="text-primary font-weight-bold font-size-h6 mt-2">Leads</a><br>
+											<small>by Esther Phan & Claire Lilly</small>
 										</div>
 										<div class="pl-0 col text-right">
 											<h6><strong>{{ !empty($leadCount) ? $leadCount : 0 }}</strong></h6>
@@ -252,7 +253,8 @@ Dashboard
 												</svg>
 												<!--end::Svg Icon-->
 											</span>
-											<a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">Duplicate Leads</a>
+											<a href="#" class="text-danger font-weight-bold font-size-h6 mt-2">Duplicate Leads</a><br>
+											<small>for Esther Phan & Claire Lilly</small>
 										</div>
 										<div class="pl-0 col text-right">
 											<h6><strong>{{ !empty($duplicateLeadCount) ? $duplicateLeadCount : 0 }}</strong></h6>
@@ -277,6 +279,9 @@ Dashboard
 							<div id="chart_12" class="d-flex justify-content-center"></div>
 							<!--end::Chart-->
 						</div>
+						<div class="card-footer">
+							<small class="text-danger">Uploaded by Esther Phan & Claire Lilly</small>
+						</div>
 					</div>
 					<!--end::Card-->
 				
@@ -285,7 +290,7 @@ Dashboard
 				
 			</div>
 			<!--begin::Row-->
-			<div class="row">
+			{{-- <div class="row">
 				<div class="col-xl-4 col-xxl-4">
 					<!--begin::Tiles Widget 1-->
 					<div class="card card-custom bg-white-100 card-stretch gutter-b">
@@ -488,7 +493,7 @@ Dashboard
 					<!--end::Tiles Widget 1-->
 				</div>
 
-			</div>
+			</div> --}}
 			<!--end::Row-->
 
 			<!--end::Dashboard-->

@@ -9,6 +9,7 @@ use App\Repositories\LeadRepository;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use App\Api\LemlistApi;
 use App\Lead;
+use App\User;
 use App\LeadReporting;
 use App\Activity;
 use Illuminate\Support\Facades\DB;
@@ -44,8 +45,50 @@ class ScriptController extends Controller{
     */
     public function processEmailSentWebhooks(Request $request)
     {
-        $data = json_encode($request->post());
+        $arrPostData = $request->post();
+        if(!empty($arrPostData)){
+            $cmp_id =$arrPostData['campaignId'];
+            $objUploadedUser = User::where('name', $arrPostData['sendUserName'])->first();
+            if(!empty($objUploadedUser->id)){
+                $varUploadedBy = $objUploadedUser->id;
+            }else{
+                $objUser = new User();
+                $objUser->name = $arrPostData['sendUserName'];
+                $objUser->email = $arrPostData['sendUserEmail'];
+                $objUser->password = bcrypt("code@123");
+                $objUser->phone = '1111111111';
+                $objUser->role_id = '2';
+                $objUser->status = '1';
+                $objUser->save();
+                $varUploadedBy = $objUser->id;
+            }
+            // check the lead is already in our system if not then insert
+            $objLead = Lead::where('email',$arrPostData['leadEmail'])->where('campaign_id',$cmp_id)->first();
+            if(empty($objLead)){
+                $attributes = [
+                    'campaign_id'=>$cmp_id,
+                    'company'=>!empty($arrPostData['companyName']) ? $arrPostData['companyName'] : "",
+                    'keyword'=>"",
+                    'url'=>"",
+                    'description'=>"",
+                    'first_name'=>!empty($arrPostData['leadFirstName']) ? $arrPostData['leadFirstName'] : "",
+                    'last_name'=>!empty($arrPostData['leadLastName']) ? $arrPostData['leadLastName'] : "",
+                    'email'=>$arrPostData['leadEmail'],
+                    'area_interest'=>!empty($arrPostData['Area of interest']) ? $arrPostData['Area of interest'] : "",
+                    'source'=>!empty($value['Source']) ? $arrPostData['Source'] :"",
+                    'sdr'=>"",
+                    "is_inserted_lemlist"=>1,
+                    'uploaded_by'=>$varUploadedBy,
+                    "created_at"=>date("y-m-d h:i:s", strtotime($arrPostData['createdAt']))
+                ];
+                $objModel = new Lead();
+                $objModel->create($attributes);
+            }
+        }
+        $data = json_encode($arrPostData);
         DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['emailsSent',$data]);
+        // $data = json_encode($request->post());
+        // DB::insert('insert into tbl_temp (type,data_json) values (?,?)', ['emailsSent',$data]);
     }
 
     /*
@@ -96,33 +139,71 @@ class ScriptController extends Controller{
     * Script for getting old leads for reporting Campaigns
     */
     public function emailSent(Request $request){
-        
+        // fetching the data for the event
         $objLemlistApi = new LemlistApi('activities');
         $cmp_id = $request->input('cmp_id'); 
-        // fetching the data for the event
-        $objResult = $objLemlistApi->callApiWithGetData("?type=emailsSent&isFirst=true&campaignId={$cmp_id}",1);
+        // if more than 1000 data exceded
+        $offset = $request->input('offset');
+        $varOffL = "";
+        if(!empty($offset)){
+            $varOffL = "&offset={$offset}";
+        }
+        $objResult = $objLemlistApi->callApiWithGetData("?type=emailsSent&isFirst=true&campaignId={$cmp_id}{$varOffL}",1);
         // and if the data is there then insert into the table lead reporting
+        
         if(!empty($objResult)){
+            //dd($objResult);exit;
+            $i=0;
             foreach($objResult as $key=>$value){
-                $attributes = [
-                    'campaign_id'=>$cmp_id,
-                    'company'=>$value['companyName'],
-                    'keyword'=>"",
-                    'url'=>"",
-                    'description'=>"",
-                    'first_name'=>$value['leadFirstName'],
-                    'last_name'=>$value['leadLastName'],
-                    'email'=>$value['leadEmail'],
-                    'area_interest'=>$value['Area of interest'],
-                    'source'=>$value['Source'],
-                    'sdr'=>"",
-                    "is_inserted_lemlist"=>1,
-                    "created_at"=>date("y-m-d h:i:s", strtotime($objResult[0]['createdAt']))
-                ];
-                $objModel = new LeadReporting();
-                $objModel->create($attributes);
+                //check user is existed or not 
+                $objUploadedUser = User::where('name', $value['extra']['sendUserName'])->first();
+                if(!empty($objUploadedUser->id)){
+                    $varUploadedBy = $objUploadedUser->id;
+                }else{
+                    $objUser = new User();
+                    $objUser->name = $value['extra']['sendUserName'];
+                    $objUser->email = $value['extra']['sendUserEmail'];
+                    $objUser->password = bcrypt("code@123");
+                    $objUser->phone = '1111111111';
+                    $objUser->role_id = '2';
+                    $objUser->status = '1';
+                    $objUser->save();
+                    $varUploadedBy = $objUser->id;
+                }
+                // check the lead is already in our system if not then insert
+                $objLead = Lead::where('email',$value['leadEmail'])->where('campaign_id',$cmp_id)->first();
+                if(empty($objLead)){
+                    $attributes = [
+                        'campaign_id'=>$cmp_id,
+                        'company'=>!empty($value['companyName']) ? $value['companyName'] : "",
+                        'keyword'=>"",
+                        'url'=>"",
+                        'description'=>"",
+                        'first_name'=>!empty($value['leadFirstName']) ? $value['leadFirstName'] : "",
+                        'last_name'=>!empty($value['leadLastName']) ? $value['leadLastName'] : "",
+                        'email'=>$value['leadEmail'],
+                        'area_interest'=>!empty($value['Area of interest']) ? $value['Area of interest'] : "",
+                        'source'=>!empty($value['Source']) ? $value['Source'] :"",
+                        'sdr'=>"",
+                        "is_inserted_lemlist"=>1,
+                        'uploaded_by'=>$varUploadedBy,
+                        "created_at"=>date("y-m-d h:i:s", strtotime($objResult[0]['createdAt']))
+                    ];
+                    $objModel = new Lead();
+                    $objModel->create($attributes);
+                    $i++;
+                }
             }
-           echo "Data Imported successfully!"; 
+            $varCount = count($objResult);
+            echo " out of {$varCount} - {$i}  Data Imported successfully!"; 
+           if($varCount ==1000){
+                if(!empty($offset)){
+                    $nextOffset = $offset + 1000;
+                }else{
+                    $nextOffset = 1000;
+                }
+                echo "<br><a target='_blank' href='".url('script-emailsent')."?cmp_id={$cmp_id}&offset={$nextOffset}'>Next</a>";
+           }
         }else{
             echo "No Lead in this campaign";
         }

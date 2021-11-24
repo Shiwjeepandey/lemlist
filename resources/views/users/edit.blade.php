@@ -74,7 +74,7 @@
 							<div class="form-group">
 							 <label>Email Id
 							  <span class="text-danger">*</span></label>
-							   <input required type="email" placeholder="Please enter email" class="form-control" data-parsley-error-message="Please enter email id" value="{{$users->email}}" disabled>
+							   <input required type="email" placeholder="Please enter email" class="form-control" data-parsley-error-message="Please enter email id" value="{{$users->email}}">
 							</div>
 						  </div>
 						<div class="col-md-6">
