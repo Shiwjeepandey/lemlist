@@ -284,45 +284,43 @@ class LeadRepository extends BaseRepository
 		return $leads;
     }
 	public function getLeadsWithSearchDataTable($userId="",$compaignId="",$fromDate="",$toDate=""){
-		$lead = $this->_model->with('sheet');
+		$lead = $this->_model->with('compaign')->whereRaw('1=1');
 		if(!empty($userId)){
 			$lead->where('uploaded_by',$userId);
-		}else{
-			$userId = "";
 		}
 		if(!empty($compaignId)){
 			$lead->where('campaign_id',$compaignId);
 		}
 		if(!empty($fromDate) && !empty($toDate)){
-			 $dateRange = date('m/d/Y',strtotime($fromDate)).'-'.date('m/d/Y',strtotime($toDate));
+			 //$dateRange = date('m/d/Y',strtotime($fromDate)).'-'.date('m/d/Y',strtotime($toDate));
 			 $lead->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d') >= ?", [$fromDate]);
 			 $lead->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d') <= ?", [$toDate]);
 			 //$lead->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d')", '>=',$fromDate);
 			 //$lead->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d')", '<=',$toDate);
-		}else{
-			$dateRange = "";
 		}
-		$lead->orderBy('id','desc')->get();
+		$lead->orderBy('id','desc');
+        //->get();
 		$table = new DataTables();
-		//var_dump($userid);exit;
+
         return $table->of($lead)
            ->addColumn('full_name', function ($row) {
-            $fullName = $row->first_name.' '.$row->last_name;
-            return $fullName;
+                $fullName = $row->first_name.' '.$row->last_name;
+                return $fullName;
             })
             ->addColumn('is_inserted_lemlist', function ($row) {
                 $is_inserted_lemlist = ($row->is_inserted_lemlist == 1) ? 'Yes' : 'No';
                 return $is_inserted_lemlist;
-                })
+            })
             ->addColumn('action', function ($row){
-				$viewPath = route('combined.view',['id'=>$row->id]);
-                $view = '<a href="'.$viewPath.'" class="btn btn-sm btn-icon btn-light-success mr-2" title="View"><i class="la la-eye view"></i></a>';
-                $action = $view;
-                return $action;
-                })
-                ->editColumn('created_at',function($data){
-                    return date("d M, Y H:i:s", strtotime($data->created_at));
-                })->addIndexColumn()
+                    $viewPath = route('combined.view',['id'=>$row->id]);
+                    $view = '<a href="'.$viewPath.'" class="btn btn-sm btn-icon btn-light-success mr-2" title="View"><i class="la la-eye view"></i></a>';
+                    $action = $view;
+                    return $action;
+            })
+            // ->editColumn('created_at',function($data){
+            //     return date("d M, Y H:i:s", strtotime($data->created_at));
+            // })
+            ->addIndexColumn()
             ->toJson();
     }
 	public function getLeadsWithDownloadCsv($userid="",$compaignId="",$fromDate="",$toDate=""){

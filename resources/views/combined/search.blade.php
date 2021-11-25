@@ -99,8 +99,8 @@ Leads
                             <div class="row">
                             <div class="col-3">
                                 <div class="form-group">
-                                        <label id="exampleSelect1">Sales Person<span class="text-danger">*</span></label>
-                                            <select name="user_id" class="form-control select_user" id="exampleSelect1" data-parsley-error-message="Please select user" required>
+                                        <label id="exampleSelect1">Sales Person</label>
+                                            <select name="user_id" class="form-control select_user" id="exampleSelect1" data-parsley-error-message="Please select user">
                                                 <option value="">Select a sales person</option>
                                                 @if(!empty($objUsers['data'][0]))
                                                     @foreach($objUsers['data'] as $user)
@@ -140,10 +140,10 @@ Leads
                                <strong>Lead Count :</strong>
                                 {{ $leadCount }}
                             </div>
-                            <div class="col-3">
+                            {{-- <div class="col-3">
                                <strong>Sheet Count :</strong>
                                {{ $sheetCount }}
-                            </div>
+                            </div> --}}
                                 
                            
                             </div>
