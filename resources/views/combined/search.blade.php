@@ -309,6 +309,8 @@ Leads
     // fetch the campaigns based on the user selection
     $("body").on("change","#sales_person",function(){
         var $this = $(this);
+        $('#user_campaigns').html("<option value=''>Loading...</option>");
+        $('#user_campaigns').selectpicker('refresh');
         $.ajax({
                 url: "{{route('combined.get-user-campaigns')}}",
                 type:"json",

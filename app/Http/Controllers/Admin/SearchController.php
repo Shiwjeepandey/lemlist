@@ -29,7 +29,14 @@ class SearchController extends Controller
   {
     $arrData = array();
     $get = $request->input();
-    $objCampaigns = $this->objCampaignRepositery->getAllCampaigns();
+
+    if (!empty($get['user_id'])) {
+      $arrData['userId'] = $get['user_id'];
+      $objCampaigns = $this->objCampaignRepositery->getUserCampaigns($arrData['userId']);
+    } else {
+      $arrData['userId'] = "";
+      $objCampaigns = $this->objCampaignRepositery->getAllCampaigns();
+    }
     $arrData['objCampaigns'] = $objCampaigns;
 
     $objUsers = $this->userRepositery->getAllUsers($this->varExcludeUsers);
@@ -51,11 +58,7 @@ class SearchController extends Controller
       $arrData['fromArrayDate'] = "";
       $arrData['toArrayDate'] = "";
     }
-    if (!empty($get['user_id'])) {
-      $arrData['userId'] = $get['user_id'];
-    } else {
-      $arrData['userId'] = "";
-    }
+    
     if (!empty($get['compaign_id'])) {
       $arrData['compaignId'] = $get['compaign_id'];
     } else {

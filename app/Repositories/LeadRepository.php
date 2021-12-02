@@ -284,7 +284,7 @@ class LeadRepository extends BaseRepository
 		return $leads;
     }
 	public function getLeadsWithSearchDataTable($userId="",$compaignId="",$fromDate="",$toDate=""){
-		$lead = $this->_model->with('compaign')->whereRaw('1=1');
+		$lead = $this->_model->with('compaign')->whereNotIn('uploaded_by',[33,34]);
 		if(!empty($userId)){
 			$lead->where('uploaded_by',$userId);
 		}
