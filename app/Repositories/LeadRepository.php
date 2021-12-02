@@ -299,7 +299,6 @@ class LeadRepository extends BaseRepository
 			 //$lead->whereRaw("DATE_FORMAT(created_at, '%Y-%m-%d')", '<=',$toDate);
 		}
 		$lead->orderBy('id','desc');
-        //->get();
 		$table = new DataTables();
 
         return $table->of($lead)
@@ -366,7 +365,7 @@ class LeadRepository extends BaseRepository
 	}
 	public function getAllLeadCount($userid="",$compaignId="",$fromDate="",$toDate=""){
 		//var_dump($userid);var_dump($compaignId);var_dump($fromDate);exit;
-		$lead = $this->_model;
+		$lead = $this->_model->whereNotIn('uploaded_by',[33,34]);
 		if(!empty($userid)){
 		   $lead = $lead->where('uploaded_by',$userid);
 		}
