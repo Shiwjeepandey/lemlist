@@ -100,7 +100,7 @@ Leads
                             <div class="col-3">
                                 <div class="form-group">
                                         <label id="exampleSelect1">Sales Person</label>
-                                            <select name="user_id" class="form-control select_user" id="exampleSelect1" data-parsley-error-message="Please select user">
+                                            <select name="user_id" class="form-control select_user selectpicker" id="sales_person" data-parsley-error-message="Please select user" data-live-search="true">
                                                 <option value="">Select a sales person</option>
                                                 @if(!empty($objUsers['data'][0]))
                                                     @foreach($objUsers['data'] as $user)
@@ -114,7 +114,7 @@ Leads
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label id="exampleSelect1">Compaigns</label>
-                                            <select name="compaign_id" class="form-control select_compaign selectpicker" id="exampleSelect1" data-live-search="true">
+                                            <select name="compaign_id" class="form-control select_compaign selectpicker" id="user_campaigns" data-live-search="true">
                                                 <option value="">Select a compaign</option>
                                                 @if(!empty($objCampaigns[0]))
                                                     @foreach($objCampaigns as $comp)
@@ -156,7 +156,7 @@ Leads
                                             <th scope="col">Campaign Name</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Full Name</th>
-                                            <th scope="col">Company</th>
+                                            <th scope="col">Created At</th>
                                             <!-- <th scope="col">Lemlist Inserted</th> -->
                                             <th scope="col">Action</th>
                                         </tr>
@@ -239,6 +239,7 @@ Leads
                 processing: true,
                 serverSide: true,
                 ajax: serviceUrl,
+                pageLength: 25,
                 order: [
                         [3, "desc"]
                         ],
@@ -248,7 +249,8 @@ Leads
                     { data: 'compaign.campaign_name' },
                     { data: 'email' },
                     { data: 'full_name' },
-                    { data: 'keyword' },
+                    // { data: 'keyword' },
+                    { data: 'created_at' },
                     //{ data: 'is_inserted_lemlist' },
                     { data: 'action' },
                 ],
@@ -279,7 +281,7 @@ Leads
             locale: {
                 cancelLabel: 'Clear'
             },
-            minDate: new Date(currentYear, currentMonth-3, currentDate),
+            //minDate: new Date(currentYear, currentMonth-3, currentDate),
 			maxDate: new Date(currentYear, currentMonth, currentDate)
  
         }, function(start, end, label) {
@@ -302,6 +304,23 @@ Leads
          $('.download-sheet').attr('href','javascript:;');
          $('#download-error-modal').modal('show', {backdrop:'static',keyboard:false}); 
        }
+    });
+
+    // fetch the campaigns based on the user selection
+    $("body").on("change","#sales_person",function(){
+        var $this = $(this);
+        $.ajax({
+                url: "{{route('combined.get-user-campaigns')}}",
+                type:"json",
+                method:"Post",
+                data:{
+                    user_id:$this.val()
+                },
+                success:function(responseData){ 
+                   $('#user_campaigns').html(responseData.options);
+                   $('#user_campaigns').selectpicker('refresh');
+                }  
+           });
     });
 
 </script>

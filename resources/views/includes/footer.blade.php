@@ -10,7 +10,7 @@
 	
 	
 	<div class="text-dark order-2 order-md-1">
-		<span class="text-muted font-weight-bold mr-2">Develop by:</span>
+		<span class="text-muted font-weight-bold mr-2">Powered by -</span>
 		<a href="https://www.codeyiizen.com/" target="_blank" class="text-dark-75 text-hover-primary">Codeyiizen software & Services Pvt. Ltd.</a>
 	</div>
 	<!--end::Copyright-->

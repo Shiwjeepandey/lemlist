@@ -317,9 +317,9 @@ class LeadRepository extends BaseRepository
                     $action = $view;
                     return $action;
             })
-            // ->editColumn('created_at',function($data){
-            //     return date("d M, Y H:i:s", strtotime($data->created_at));
-            // })
+            ->editColumn('created_at',function($data){
+                return date("d M, Y H:i:s", strtotime($data->created_at));
+            })
             ->addIndexColumn()
             ->toJson();
     }

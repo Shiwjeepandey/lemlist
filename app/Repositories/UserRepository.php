@@ -48,8 +48,11 @@ class UserRepository extends BaseRepository
         }
         return $data;
     }
-    public function getAllUsers(){
+    public function getAllUsers($notFewUsers=[]){
 		$users = $this->_model;
+        if(!empty($notFewUsers)){
+            $users = $this->_model->whereNotIn('email',$notFewUsers);
+        }
 		 return array('total'=>$users->count(),'data'=>$users->orderBy('id','desc')->get());
 	}
 

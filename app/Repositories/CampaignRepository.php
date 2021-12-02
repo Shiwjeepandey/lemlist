@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Builder;
 use App\Campaign;
 use App\Api\LemlistApi;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
@@ -107,5 +108,17 @@ class CampaignRepository extends BaseRepository
         $campaigns = $this->_model->where('is_delete', 0);
         $campaigns = $campaigns->orderBy('id', 'desc')->limit(5)->get();
 		return $campaigns;
+    }
+    // get all the campaigns based on a user
+    public function getUserCampaigns($user){
+        $modelUser = new User();
+        $objUser = $modelUser->where('id',$user)->first();
+        if(!empty($objUser->name)){
+            $firstName = explode(" ",$objUser->name);
+            $objCampaigns = $this->_model->where('campaign_name','like',"%{$firstName[0]}%")->orderBy('campaign_name','asc')->get();
+        }else{
+            $objCampaigns = $this->_model->orderBy('campaign_name','asc')->get();
+        }
+        return $objCampaigns;
     }
 }

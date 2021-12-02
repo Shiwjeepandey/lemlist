@@ -19,15 +19,16 @@ use App\Repositories\LeadRepository;
 
    
 class DashboardController extends Controller{
+    private $varExcludeUsers = [33,34];
     public function index(CampaignRepository $campaignRepositery,LeadRepository $objLeadRepository){
 		$arrData = array();
         $arrData['userCount'] = User::where('role_id',2)->count();
         $arrData['compaignCount'] = Campaign::count();
-        $arrData['leadCount'] = Lead::whereIn('uploaded_by',[33,34])->count();
+        $arrData['leadCount'] = Lead::whereIn('uploaded_by',$this->varExcludeUsers)->count();
         //$arrData['leadCount'] = Lead::count();
         $arrData['sheetCount'] = Sheet::count();
-        $arrData['emailBounceCount']=Lead::where('email_bounce','1')->whereIn('uploaded_by',[33,34])->count();
-        $arrData['emailunsubscribe']=Lead::where('email_unsubscribe','1')->whereIn('uploaded_by',[33,34])->count();
+        $arrData['emailBounceCount']=Lead::where('email_bounce','1')->whereIn('uploaded_by',$this->varExcludeUsers)->count();
+        $arrData['emailunsubscribe']=Lead::where('email_unsubscribe','1')->whereIn('uploaded_by',$this->varExcludeUsers)->count();
         $duplicates = DB::table('tbl_leads')
                         ->select(DB::raw('COUNT(*) as `count`'))
                         ->where('is_inserted_lemlist',0)

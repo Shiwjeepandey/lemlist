@@ -156,4 +156,5 @@ Route::post('forgot-password/{token}', 'AuthController@forgotPostPassword')->nam
         Route::get('/get-lead', 'Admin\SearchController@getLeadList')->name('get-lead');
         Route::get('/download-sheet', 'Admin\SearchController@getDownloadLeadList')->name('download-sheet');
         Route::get('/view/{id}', 'Admin\SearchController@getCombinedLeadView')->name('view');
+        Route::post('/get-user-campaigns', 'Admin\SearchController@getUserCampaigns')->name('get-user-campaigns');
     });
