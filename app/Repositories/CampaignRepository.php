@@ -137,4 +137,10 @@ class CampaignRepository extends BaseRepository
         }
         return $objCampaigns;
     }
+
+    // get Campaigns started with VA
+    public function getCampaignStartedWithSpecificWordAndCamp($varWord, $varCampaignId){
+        $objCampaign = $this->_model->where('campaign_name','like',"{$varWord}%")->where('campaign_id',$varCampaignId)->first();
+         return $objCampaign;
+    }
 }

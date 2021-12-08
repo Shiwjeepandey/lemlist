@@ -48,19 +48,26 @@ class ScriptController extends Controller{
         $arrPostData = $request->post();
         if(!empty($arrPostData)){
             $cmp_id =$arrPostData['campaignId'];
-            $objUploadedUser = User::where('name', $arrPostData['sendUserName'])->first();
-            if(!empty($objUploadedUser->id)){
-                $varUploadedBy = $objUploadedUser->id;
+            $objCampaignRepository = new CampaignRepository();
+            $objCampiagnVA = $objCampaignRepository->getCampaignStartedWithSpecificWordAndCamp("VA ",$cmp_id);
+            if(!empty($objCampiagnVA)){
+                $varUserArray = config('constants.esther_clair');
+                $varUploadedBy =$varUserArray[array_rand($varUserArray)];
             }else{
-                $objUser = new User();
-                $objUser->name = $arrPostData['sendUserName'];
-                $objUser->email = $arrPostData['sendUserEmail'];
-                $objUser->password = bcrypt("code@123");
-                $objUser->phone = '1111111111';
-                $objUser->role_id = '2';
-                $objUser->status = '1';
-                $objUser->save();
-                $varUploadedBy = $objUser->id;
+                $objUploadedUser = User::where('name', $arrPostData['sendUserName'])->first();
+                if(!empty($objUploadedUser->id)){
+                    $varUploadedBy = $objUploadedUser->id;
+                }else{
+                    $objUser = new User();
+                    $objUser->name = $arrPostData['sendUserName'];
+                    $objUser->email = $arrPostData['sendUserEmail'];
+                    $objUser->password = bcrypt("code@123");
+                    $objUser->phone = '1111111111';
+                    $objUser->role_id = '2';
+                    $objUser->status = '1';
+                    $objUser->save();
+                    $varUploadedBy = $objUser->id;
+                }
             }
             // check the lead is already in our system if not then insert
             $objLead = Lead::where('email',$arrPostData['leadEmail'])->where('campaign_id',$cmp_id)->first();
