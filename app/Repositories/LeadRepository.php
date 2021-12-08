@@ -284,7 +284,7 @@ class LeadRepository extends BaseRepository
 		return $leads;
     }
 	public function getLeadsWithSearchDataTable($userId="",$compaignId="",$fromDate="",$toDate=""){
-		$lead = $this->_model->with('compaign')->whereNotIn('uploaded_by',[33,34]);
+		$lead = $this->_model->with('compaign')->whereNotIn('uploaded_by',config('constants.esther_clair'));
 		if(!empty($userId)){
 			$lead->where('uploaded_by',$userId);
 		}
@@ -365,7 +365,7 @@ class LeadRepository extends BaseRepository
 	}
 	public function getAllLeadCount($userid="",$compaignId="",$fromDate="",$toDate=""){
 		//var_dump($userid);var_dump($compaignId);var_dump($fromDate);exit;
-		$lead = $this->_model->whereNotIn('uploaded_by',[33,34]);
+		$lead = $this->_model->whereNotIn('uploaded_by',config('constants.esther_clair'));
 		if(!empty($userid)){
 		   $lead = $lead->where('uploaded_by',$userid);
 		}
