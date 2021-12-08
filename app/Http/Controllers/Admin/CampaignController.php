@@ -55,7 +55,7 @@ class CampaignController extends Controller{
     public function sync_with_lemlist(Request $request){
         if ($request->ajax()){
             $this->objCampaignRepositery->syncCampaign();
-            return response()->json(array('processed'=>1));
+            return response()->json(array('processed'=>1)); 
         }
     }
    

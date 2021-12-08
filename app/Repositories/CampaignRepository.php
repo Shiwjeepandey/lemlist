@@ -88,8 +88,21 @@ class CampaignRepository extends BaseRepository
     */
     public function syncCampaign()
     {
-        $user = Auth::user();
-        $objLemlistApi = new LemlistApi('campaigns');
+        $varCampaignCounts = 0;
+        for($i=0;$i<=100;$i++){
+            if($i!=0){
+                $varCampaignCounts = $varCampaignCounts*$i;
+            }
+            $varCampaignCounts = $this->syncingBehindTheSchene($varCampaignCounts);
+            if($varCampaignCounts < 100){
+                break;
+            }
+        }
+    }
+
+    private function syncingBehindTheSchene($varOffset=""){
+        $offset = !empty($varOffset) ? $varOffset : 0;
+        $objLemlistApi = new LemlistApi('campaigns', "?offset=".$offset);
         $jsonData = $objLemlistApi->callApi();
         if (!empty($jsonData)) {
             foreach ($jsonData as $arrCmpData) {
@@ -103,7 +116,10 @@ class CampaignRepository extends BaseRepository
                 }
             }
         }
+        return count($jsonData);
     }
+
+
     public function getLatestCompaign(){
         $campaigns = $this->_model->where('is_delete', 0);
         $campaigns = $campaigns->orderBy('id', 'desc')->limit(5)->get();

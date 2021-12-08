@@ -19,9 +19,10 @@ use App\Repositories\LeadRepository;
 
    
 class DashboardController extends Controller{
-    private $varExcludeUsers = [33,34];
+    private $varExcludeUsers = [];
     public function index(CampaignRepository $campaignRepositery,LeadRepository $objLeadRepository){
-		$arrData = array();
+		$this->varExcludeUsers =  config('constants.esther_clair');
+        $arrData = array();
         $arrData['userCount'] = User::where('role_id',2)->count();
         $arrData['compaignCount'] = Campaign::count();
         $arrData['leadCount'] = Lead::whereIn('uploaded_by',$this->varExcludeUsers)->count();
