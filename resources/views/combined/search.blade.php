@@ -297,13 +297,14 @@ Leads
     });
     $("body").on("click",".download-sheet",function(){
        var data_href=$(this).attr('data-href');
-       var sales_person = $('.select_user').val();
-        if(sales_person!=''){
-          $('.download-sheet').attr('href',data_href);
-       }else{
-         $('.download-sheet').attr('href','javascript:;');
-         $('#download-error-modal').modal('show', {backdrop:'static',keyboard:false}); 
-       }
+       var sales_person = $('#sales_person').val();
+       $('.download-sheet').attr('href',data_href);
+    //    if(sales_person!=''){ alert(data_href);
+    //       $('.download-sheet').attr('href',data_href);
+    //    }else{
+    //      $('.download-sheet').attr('href','javascript:;');
+    //      $('#download-error-modal').modal('show', {backdrop:'static',keyboard:false}); 
+    //    }
     });
 
     // fetch the campaigns based on the user selection

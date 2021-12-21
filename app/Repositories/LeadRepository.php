@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Rap2hpoutre\FastExcel\FastExcel;
 use Carbon\Carbon;
-
+ini_set('memory_limit', '-1');
 class LeadRepository extends BaseRepository
 {
     
@@ -326,7 +326,7 @@ class LeadRepository extends BaseRepository
 		$mytime = Carbon::now();
 		$dateTimeData = $mytime->format('d-M-Y');
         $fileName = 'download-combined-sheet-'.$dateTimeData.'-'.$this->getFileName(6,rand(0,100));
-		$lead = $this->_model->with('sheet');
+		$lead = $this->_model->with('compaign');
 		if(!empty($userid)){
 			$lead->where('uploaded_by',$userid);
 		}
@@ -342,8 +342,7 @@ class LeadRepository extends BaseRepository
 			$i=1;
 			foreach($leads as $objLead){
 				$getAllSearchLeads[] = array(
-				                              '#'=>$i++,
-											  'Campaign Id'=>$objLead->campaign_id,
+				                              'Campaign Name'=>$objLead->compaign->campaign_name,
 											  'Company'=>$objLead->company,
 											  'Keyword'=>$objLead->keyword,
 											  'Url'=>$objLead->url,

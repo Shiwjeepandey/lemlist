@@ -119,7 +119,7 @@ class CampaignRepository extends BaseRepository
         return count($jsonData);
     }
 
-
+    //
     public function getLatestCompaign(){
         $campaigns = $this->_model->where('is_delete', 0);
         $campaigns = $campaigns->orderBy('id', 'desc')->limit(5)->get();
@@ -131,7 +131,8 @@ class CampaignRepository extends BaseRepository
         $objUser = $modelUser->where('id',$user)->first();
         if(!empty($objUser->name)){
             $firstName = explode(" ",$objUser->name);
-            $objCampaigns = $this->_model->where('campaign_name','like',"%{$firstName[0]}%")->orderBy('campaign_name','asc')->get();
+            $objCampaigns = $this->_model->where('campaign_name','like',"{$firstName[0]} -%")
+                                    ->orderBy('campaign_name','asc')->get();
         }else{
             $objCampaigns = $this->_model->orderBy('campaign_name','asc')->get();
         }

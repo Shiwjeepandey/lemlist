@@ -39,7 +39,7 @@ class SearchController extends Controller
     }
     $arrData['objCampaigns'] = $objCampaigns;
 
-    $objUsers = $this->userRepositery->getAllUsers($this->varExcludeUsers);
+    $objUsers = $this->userRepositery->getAllUsers($this->varExcludeUsers, "name");
     $arrData['objUsers'] = $objUsers;
     // echo "<pre>";var_dump($arrData['objUsers']);exit;
     if (!empty($get['daterange'])) {
